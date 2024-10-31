@@ -6,6 +6,9 @@ set(SDL_STATIC ON)
 add_subdirectory(libs/SDL)
 
 #test
+
+
+
 include_directories(src libs/SDL/include)
 SET(CMAKE_EXE_LINKER_FLAGS "-static-libstdc++")
 
