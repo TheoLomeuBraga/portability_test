@@ -17,7 +17,7 @@ SET(CMAKE_EXE_LINKER_FLAGS "-static-libstdc++")
 
 
 if(ANDROID)
-    add_library(native-lib src/main.cpp)   
+    add_library(native-lib SHARED src/main.cpp)   
     target_link_libraries(native-lib SDL3::SDL3-static ${GLESv3_LIB} android EGL GLESv2)
 else()
     add_executable(test src/main.cpp)
