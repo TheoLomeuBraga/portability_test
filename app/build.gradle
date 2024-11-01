@@ -4,9 +4,9 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 33
 
-    namespace 'com.portability_test.game'
+    namespace 'com.portabilitytest.game'
     defaultConfig {
-        applicationId "com.portability_test.game"
+        applicationId "com.portabilitytest.game"
         minSdkVersion 21
         targetSdkVersion 33
         versionCode 1

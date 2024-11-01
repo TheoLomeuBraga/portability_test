@@ -21,12 +21,12 @@ float randon()
 bool is_open = true;
 SDL_Window *window;
 
-float clear_color[3] = {0,0,0};
+float clear_color[3] = {0, 0, 0};
 
 void main_loop()
 {
 
-    {
+  {
     SDL_Event e;
     while (SDL_PollEvent(&e))
     {
@@ -77,6 +77,22 @@ int start()
 }
 
 #ifdef __ANDROID__
+#include <jni.h>
+#include <thread>
+
+extern "C"
+{
+  char msg[] = "greetings from C/C++";
+
+  std::thread loopThread(start);
+  loopThread.detach();
+
+  JNIEXPORT void JNICALL Java_com_portabilitytest_game_MainActivity_start(JNIEnv *env, jobject thiz)
+  {
+    start();
+    return env->NewStringUTF("OK");
+  }
+}
 
 #else
 int main(int argc, char **argv)
