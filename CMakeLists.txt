@@ -17,6 +17,11 @@ find_package(OpenGL REQUIRED)
 target_link_libraries(test SDL3::SDL3-static ${OPENGL_LIBRARIES})
 
 
+
+if (WIN32)
+    SET(CMAKE_CXX_FLAGS  "-mwindows")
+endif (WIN32)
+
 if(EMSCRIPTEN)
     set(CMAKE_EXECUTABLE_SUFFIX .html)
 endif()
