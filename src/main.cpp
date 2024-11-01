@@ -21,9 +21,12 @@ float randon()
 bool is_open = true;
 SDL_Window *window;
 
+float clear_color[3] = {0,0,0};
+
 void main_loop()
 {
-  {
+
+    {
     SDL_Event e;
     while (SDL_PollEvent(&e))
     {
@@ -34,19 +37,22 @@ void main_loop()
 
       if (e.type == SDL_EVENT_MOUSE_BUTTON_DOWN || e.type == SDL_EVENT_KEY_DOWN || e.type == SDL_EVENT_FINGER_DOWN)
       {
-
-        
-
-        glClearColor(randon(), randon(), randon(), 1.0f);
+        clear_color[0] = randon();
+        clear_color[1] = randon();
+        clear_color[2] = randon();
+        glClearColor(clear_color[0], clear_color[1], clear_color[2], 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
       }
     }
 
     SDL_GL_SwapWindow(window);
   };
+
+  glClearColor(clear_color[0], clear_color[1], clear_color[2], 1.0f);
+  glClear(GL_COLOR_BUFFER_BIT);
 }
 
-int main(int argc, char **argv)
+int start()
 {
   // SDL_Init(SDL_INIT_VIDEO);
 
@@ -60,10 +66,6 @@ int main(int argc, char **argv)
 
   SDL_GLContext glc = SDL_GL_CreateContext(window);
 
-  // Clear the screen to black
-  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-  glClear(GL_COLOR_BUFFER_BIT);
-
 #ifdef __EMSCRIPTEN__
   emscripten_set_main_loop(main_loop, 0, true);
 #else
@@ -73,3 +75,12 @@ int main(int argc, char **argv)
 
   return 0;
 }
+
+#ifdef __ANDROID__
+
+#else
+int main(int argc, char **argv)
+{
+  return start();
+}
+#endif

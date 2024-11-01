@@ -12,9 +12,18 @@ add_subdirectory(libs/SDL)
 include_directories(src libs/SDL/include)
 SET(CMAKE_EXE_LINKER_FLAGS "-static-libstdc++")
 
-add_executable(test src/main.cpp)
-find_package(OpenGL REQUIRED)
-target_link_libraries(test SDL3::SDL3-static ${OPENGL_LIBRARIES})
+
+
+
+
+if(ANDROID)
+    add_library(native-lib src/main.cpp)   
+    target_link_libraries(native-lib SDL3::SDL3-static ${GLESv3_LIB} android EGL GLESv2)
+else()
+    add_executable(test src/main.cpp)
+    find_package(OpenGL REQUIRED)
+    target_link_libraries(test SDL3::SDL3-static ${OPENGL_LIBRARIES})
+endif()
 
 
 
