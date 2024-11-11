@@ -10,10 +10,10 @@ set(CMAKE_CXX_COMPILER ${ANDROID_NDK}/toolchains/llvm/prebuilt/linux-x86_64/bin/
 include_directories(src ../../../../libs/SDL/include)
 add_subdirectory(../../../../ ${CMAKE_BINARY_DIR}/libs/main )
 
-add_library(${CMAKE_PROJECT_NAME} SHARED
-    native-lib.cpp)
+add_library(${CMAKE_PROJECT_NAME} SHARED native-lib.cpp)
+#add_library(main SHARED native-lib.cpp)
 
 target_link_libraries(${CMAKE_PROJECT_NAME}
-        main
+        core
     android
     log)
