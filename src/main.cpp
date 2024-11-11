@@ -45,11 +45,11 @@ void main_loop()
       }
     }
 
+    glClearColor(clear_color[0], clear_color[1], clear_color[2], 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
     SDL_GL_SwapWindow(window);
   };
-
-  glClearColor(clear_color[0], clear_color[1], clear_color[2], 1.0f);
-  glClear(GL_COLOR_BUFFER_BIT);
 }
 
 int start()
@@ -58,13 +58,19 @@ int start()
 
   window = SDL_CreateWindow("test", 640, 480, SDL_WINDOW_OPENGL);
 
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+  // SDL_SetHint(SDL_HINT_OPENGL_ES_DRIVER, "1");
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
-  SDL_GL_SetSwapInterval(0);
+
   SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
   SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
 
   SDL_GLContext glc = SDL_GL_CreateContext(window);
+
+  SDL_GL_MakeCurrent(window, glc);
+
+  SDL_GL_SetSwapInterval(1);
 
 #ifdef __EMSCRIPTEN__
   emscripten_set_main_loop(main_loop, 0, true);
