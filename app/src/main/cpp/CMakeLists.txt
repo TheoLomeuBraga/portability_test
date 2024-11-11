@@ -14,6 +14,6 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
     native-lib.cpp)
 
 target_link_libraries(${CMAKE_PROJECT_NAME}
-        main-lib
+        main
     android
     log)

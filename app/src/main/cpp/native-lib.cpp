@@ -11,6 +11,6 @@ Java_com_example_myapplication_MainActivity_stringFromJNI(
     //start();
     std::thread start_thread(start);
     start_thread.detach();
-    
+
     return env->NewStringUTF(hello.c_str());
 }

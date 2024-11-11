@@ -17,8 +17,8 @@ SET(CMAKE_EXE_LINKER_FLAGS "-static-libstdc++")
 
 
 if (ANDROID)
-    add_library(main-lib src/main.cpp)   
-    target_link_libraries(main-lib SDL3::SDL3-static ${GLESv3_LIB} android log EGL GLESv2)
+    add_library(main src/main.cpp)   
+    target_link_libraries(main SDL3::SDL3-static ${GLESv3_LIB} android log EGL GLESv2)
 else()
     add_executable(test src/main.cpp)
     find_package(OpenGL REQUIRED)
