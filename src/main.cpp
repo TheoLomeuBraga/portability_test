@@ -2,6 +2,8 @@
 #include <functional>
 
 #include <SDL3/SDL.h>
+
+
 #include <SDL3/SDL_opengles2.h>
 
 #include <random>
@@ -12,11 +14,7 @@ float randon()
   return dist(rng);
 }
 
-#ifdef __EMSCRIPTEN__
 
-#include <emscripten.h>
-
-#endif
 
 bool is_open = true;
 SDL_Window *window;
@@ -87,30 +85,40 @@ void end()
   SDL_Quit();
 }
 
-int start_all()
-{
 
-  start();
 
-#ifdef __EMSCRIPTEN__
-  emscripten_set_main_loop(main_loop, 0, true);
-#else
-  while (is_open)
-  {
+
+#ifndef __ANDROID__
+#define SDL_MAIN_USE_CALLBACKS
+#include <SDL3/SDL_main.h>
+
+extern "C" SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[]) {
+    start();
+    return SDL_APP_CONTINUE;
+}
+
+extern "C" SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event* event) {
+
+    if(process_event(*event)){
+        return SDL_APP_CONTINUE;
+    }else{
+        return SDL_APP_SUCCESS;
+    }
+
+
+}
+
+extern "C" SDL_AppResult SDL_AppIterate(void *appstate) {
+
     main_loop();
-  }
-#endif
 
-  end();
-
-  return 0;
+    return SDL_APP_CONTINUE;
 }
 
-#ifdef __ANDROID__
-
-#else
-int main(int argc, char **argv)
-{
-  return start_all();
+extern "C" void SDL_AppQuit(void* appstate, SDL_AppResult result) {
+    end();
 }
+
+
 #endif
+
