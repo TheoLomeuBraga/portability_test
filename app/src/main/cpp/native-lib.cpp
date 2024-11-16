@@ -26,7 +26,7 @@ extern "C" int main(int argc, char *argv[]) {
 */
 
 extern "C" SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[]) {
-    //start();
+    start();
     return SDL_APP_CONTINUE;
 }
 
@@ -43,7 +43,7 @@ extern "C" SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event* event) {
 
 extern "C" SDL_AppResult SDL_AppIterate(void *appstate) {
 
-    //main_loop();
+    main_loop();
 
     return SDL_APP_CONTINUE;
 }
